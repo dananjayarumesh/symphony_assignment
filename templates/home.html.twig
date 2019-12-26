@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row mt-5">
+
+			<div class="col-md-12">
+
+				<div class="mb-2">
+					<select class="custom-select" id="inputGroupSelect01">
+						<option selected>Select Category</option>
+						<option value="1">One</option>
+						<option value="2">Two</option>
+						<option value="3">Three</option>
+					</select>
+				</div>
+
+				<div>
+					{# <table class="table table-striped">
+																<thead>
+																	<tr>
+																		<th>Name</th>
+																		<th>ISBN</th>
+																		<th>Category</th>
+																		<th>Price</th>
+																		<th>Add to bag</th>
+																	</tr>
+																</thead>
+										
+																<tbody></tbody>
+										
+										
+															</table> #}
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-md-3">Book name is here
+									<br><small>ISBN : 123212434</small>
+								</div>
+								<div class="col-md-2">Children</div>
+								<div class="col-md-4 text-right" style="color: #ca2323;
+									    font-weight: bold;
+									    font-size: 20px;">LKR 100.00</div>
+								<div class="col-md-3 text-right">
+									<button class="btn btn-success">Add to bag</button>
+								</div>
+							</div>
+						</li>
+					
+					</ul>
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+{% endblock %}
