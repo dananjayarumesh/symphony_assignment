@@ -46,6 +46,11 @@ class Book
      */
     private $active;
 
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="category")
+     */
+    private $order_item;
+
     public function getId(): ?int
     {
         return $this->id;

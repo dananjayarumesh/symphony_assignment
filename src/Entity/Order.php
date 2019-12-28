@@ -56,6 +56,11 @@ class Order
      */
     private $note;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="order")
+     */
+    private $order_item;
+
     public function getId(): ?int
     {
         return $this->id;
