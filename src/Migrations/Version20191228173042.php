@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191228031646 extends AbstractMigration
+final class Version20191228173042 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,9 +24,11 @@ final class Version20191228031646 extends AbstractMigration
 
         $this->addSql('CREATE TABLE book (id INT AUTO_INCREMENT NOT NULL, category_id INT DEFAULT NULL, name TINYTEXT NOT NULL, isbn TINYTEXT NOT NULL, price DOUBLE PRECISION NOT NULL, qty INT NOT NULL, active INT NOT NULL, INDEX IDX_CBE5A33112469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, name TINYTEXT NOT NULL, active INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE `order` (id INT AUTO_INCREMENT NOT NULL, ref_no TINYTEXT NOT NULL, first_name TINYTEXT NOT NULL, last_name TINYTEXT NOT NULL, phone TINYTEXT NOT NULL, address_line_1 TINYTEXT NOT NULL, address_line_2 TINYTEXT NOT NULL, city TINYTEXT NOT NULL, note TINYTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE coupon (id INT AUTO_INCREMENT NOT NULL, code TINYTEXT NOT NULL, rate DOUBLE PRECISION NOT NULL, active INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE `order` (id INT AUTO_INCREMENT NOT NULL, coupon_id INT DEFAULT NULL, ref_no TINYTEXT NOT NULL, first_name TINYTEXT NOT NULL, last_name TINYTEXT NOT NULL, phone TINYTEXT NOT NULL, address_line_1 TINYTEXT NOT NULL, address_line_2 TINYTEXT NOT NULL, city TINYTEXT NOT NULL, note TINYTEXT NOT NULL, gross_total DOUBLE PRECISION NOT NULL, discount DOUBLE PRECISION NOT NULL, coupon_discount DOUBLE PRECISION NOT NULL, net_total DOUBLE PRECISION NOT NULL, INDEX IDX_F529939866C5951B (coupon_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE order_item (id INT AUTO_INCREMENT NOT NULL, order_id INT DEFAULT NULL, book_id INT DEFAULT NULL, qty INT NOT NULL, unit_price DOUBLE PRECISION NOT NULL, total_price DOUBLE PRECISION NOT NULL, INDEX IDX_52EA1F098D9F6D38 (order_id), INDEX IDX_52EA1F0916A2B381 (book_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE book ADD CONSTRAINT FK_CBE5A33112469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
+        $this->addSql('ALTER TABLE `order` ADD CONSTRAINT FK_F529939866C5951B FOREIGN KEY (coupon_id) REFERENCES coupon (id)');
         $this->addSql('ALTER TABLE order_item ADD CONSTRAINT FK_52EA1F098D9F6D38 FOREIGN KEY (order_id) REFERENCES `order` (id)');
         $this->addSql('ALTER TABLE order_item ADD CONSTRAINT FK_52EA1F0916A2B381 FOREIGN KEY (book_id) REFERENCES book (id)');
     }
@@ -38,9 +40,11 @@ final class Version20191228031646 extends AbstractMigration
 
         $this->addSql('ALTER TABLE order_item DROP FOREIGN KEY FK_52EA1F0916A2B381');
         $this->addSql('ALTER TABLE book DROP FOREIGN KEY FK_CBE5A33112469DE2');
+        $this->addSql('ALTER TABLE `order` DROP FOREIGN KEY FK_F529939866C5951B');
         $this->addSql('ALTER TABLE order_item DROP FOREIGN KEY FK_52EA1F098D9F6D38');
         $this->addSql('DROP TABLE book');
         $this->addSql('DROP TABLE category');
+        $this->addSql('DROP TABLE coupon');
         $this->addSql('DROP TABLE `order`');
         $this->addSql('DROP TABLE order_item');
     }

@@ -34,26 +34,21 @@ class Book
     private $category;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", options={"default":0})
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",options={"default":0})
      */
     private $qty;
 
-     /**
-     * @ORM\Column(type="integer")
+    /**
+     * @ORM\Column(type="integer",options={"default":1})
      */
     private $active;
 
-     /**
-     * @ORM\Column(type="integer")
-     */
-    private $category_id;
-
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="book")
      */
     private $order_item;

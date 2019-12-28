@@ -1,0 +1,20 @@
+.navbar-brand {
+    color: #0060C0 !important;
+    font-weight: bold;
+}
+.checkout-items{
+    overflow-y: auto;
+    height: 40vh;
+}
+.empty-cart-div{
+    background-image: url('../../assets/img/empty-cart.png');
+    height: 90vh;
+    width: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.net-total-color{
+ color: #e42525;
+ font-weight: bold;
+}

@@ -35,11 +35,7 @@ class HomeController extends Controller
         } else {
             $books = $bookRepository->getArrayResult();
         }
-        // $books = $this->getDoctrine()->getRepository(Book::class)->getArrayResult();
-
-        // dump($books);
         return $this->render('includes/book-list.html.twig',array('books'=> $books));
-        // return new JsonResponse(array('data' => $books));
     }
 
     /**

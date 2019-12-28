@@ -3,16 +3,16 @@
 	{% for book in books %}
 		<li class="list-group-item">
 			<div class="row">
-				<div class="col-md-3">{{book.name}}
+				<div class="col-md-3"><b>{{book.name}}</b>
 					<br><small>ISBN :
 						{{book.isbn}}</small>
 				</div>
 				<div class="col-md-2">{{book.category.name}}</div>
 				<div class="col-md-4 text-right" style="color: #ca2323;
 																																																																																															    font-size: 20px;">LKR
-					{{book.price}}</div>
+					{{book.price |number_format(2, '.', ',')}}</div>
 				<div class="col-md-3 text-right">
-					<button class="btn btn-success" onclick="addToCart({{book.id}})">Add to bag</button>
+					<button class="btn btn-success" onclick="addToCart({{book.id}})">Add to cart</button>
 				</div>
 			</div>
 		</li>

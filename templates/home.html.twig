@@ -3,12 +3,24 @@
 {% block title %}Home
 {% endblock %}
 
+{% block styles %}
+	<style>
+		#loading {
+			background-image: url('assets/img/loading.gif');
+			height: 300px;
+			width: 100%;
+			background-position: center;
+			/* background-size: auto; */
+			background-repeat: no-repeat;
+		}
+	</style>
+{% endblock %}
+
+
 {% block body %}
 	<div class="container">
 		<div class="row mt-5">
-
 			<div class="col-md-12">
-
 				<div class="mb-2">
 					<select class="custom-select" id="category">
 						<option value="0">All Categories</option>
@@ -17,59 +29,12 @@
 						{% endfor %}
 					</select>
 				</div>
+				<div id="bookList" style="overflow-y: auto; max-height: 70vh;"></div>
 
-				<div id="bookList"></div>
-
+				<div id="loading"></div>
 			</div>
-
-
 		</div>
-
 	</div>
-
 {% endblock %}
 
-
-{% block scripts %}
-	<script type="text/javascript">
-
-loadBookList(0);
-		$('#category').change(function () {
-
-loadBookList($(this).val());
-});
-
-function loadBookList(id) {
-$.ajax({
-url: 'get-book-list',
-type: 'POST',
-data: {
-cat_id: id
-},
-beforeSend: function () {},
-complete: function () {},
-success: function (data) {
-$('#bookList').html(data);
-},
-error: function (data) {}
-});
-}
-
-function addToCart(id) {
-$.ajax({
-url: 'cart/add',
-type: 'POST',
-dataType: 'JSON',
-data: {
-item_id: id
-},
-beforeSend: function () {},
-complete: function () {},
-success: function (data) {
-loadCartCount();
-},
-error: function (data) {}
-});
-}
-	</script>
-{% endblock %}
+{% block scripts %}{% endblock %}

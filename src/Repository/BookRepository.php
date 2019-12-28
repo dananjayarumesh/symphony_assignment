@@ -51,13 +51,12 @@ class BookRepository extends ServiceEntityRepository
     public function findByCategory($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.category_id = :val')
+            ->andWhere('b.category = :val')
             ->setParameter('val', $value)
             ->orderBy('b.id', 'ASC')
             // ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     // public function findByCategory($value)
@@ -79,7 +78,6 @@ class BookRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->orderBy('b.id', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 }

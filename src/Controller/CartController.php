@@ -18,8 +18,6 @@ class CartController extends Controller
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
-        // $this->session->set('cart',NULL);
-        // $this->session->invalidate();
         if (!$this->session->has('cart')) {
             $this->initCart();
         }
@@ -31,13 +29,10 @@ class CartController extends Controller
      */
     public function index()
     {
-
-        // if (!$this->session->has('cart')) { } else { }
         $cart = $this->session->get('cart');
         if (!$cart) {
             $this->initCart();
         }
-        dump($cart);
         return $this->render('cart.html.twig', array('cart' => $cart));
     }
 
@@ -97,7 +92,7 @@ class CartController extends Controller
         $item_id = $request->get('item_id');
         $this->setCart($item_id);
 
-        return new JsonResponse(array('status' => 'success'));
+        return new JsonResponse(array('status' => 'success', 'message' => 'Item added to cart'));
     }
 
     private function getDiscount($counts)
@@ -145,6 +140,7 @@ class CartController extends Controller
                 $temp_cat_item_qty = 0;
                 $temp_cat_item_total = 0;
 
+                //update qty if item already exists
                 if ($exist_item["id"] == $item) {
 
                     if ($remove != 1) {
@@ -154,6 +150,7 @@ class CartController extends Controller
                         $new_items[] = $this->getItemTemplate($exist_item["id"], $exist_item["name"], $exist_item["isbn"], $exist_item["category"], $new_qty, $exist_item["unit"], $new_item_total);
 
                         $gross_total += $new_item_total;
+                        $temp_cat_item_total += $new_item_total;
                         $item_found = true;
 
                         if ($qty) {
@@ -165,15 +162,11 @@ class CartController extends Controller
                 } else {
                     $new_items[] = $exist_item;
                     $gross_total += $exist_item["total"];
-
-                    // if (isset($category_item_count[$exist_item["category"]])) {
-                    //     $category_item_count[$exist_item["category"]] += $exist_item["qty"];
-                    // } else {
-                    //     $category_item_count[$exist_item["category"]] = $exist_item["qty"];
-                    // }
+                    $temp_cat_item_total += $exist_item["total"];
                     $temp_cat_item_qty = $exist_item["qty"];
                 }
 
+                //collecting data to calculate discounts
                 if ($temp_cat_item_qty != 0) {
                     if (isset($category_item_count[$exist_item["category"]]["count"])) {
                         $category_item_count[$exist_item["category"]]["count"] += $temp_cat_item_qty;
@@ -183,12 +176,16 @@ class CartController extends Controller
                 }
 
                 if (isset($category_item_count[$exist_item["category"]]["total"])) {
-                    $category_item_count[$exist_item["category"]]["total"] += $gross_total;
+                    $category_item_count[$exist_item["category"]]["total"] += $temp_cat_item_total;
                 } else {
-                    $category_item_count[$exist_item["category"]]["total"] = $gross_total;
+                    $category_item_count[$exist_item["category"]]["total"] = $temp_cat_item_total;
                 }
+
+                //end collecting data to calculate discounts
             }
         }
+
+        //add item to cart if not already exists
         if (!$item_found && !$qty && $remove != 1) {
 
             $book = $this->getDoctrine()->getRepository(Book::class)->find($item);
@@ -197,26 +194,26 @@ class CartController extends Controller
                 $new_qty = (($qty == NULL) ? 1 : $qty);
                 $new_total = $book->getPrice() * $new_qty;
 
-                $new_items[] = $this->getItemTemplate($book->getId(), $book->getName(), $book->getIsbn(), $book->getCategory()->getId(), $new_qty, $book->getPrice(), $new_total);
+                $book_with_cat = $book->getName() . "(" . $book->getCategory()->getName() . ")";
+                $new_items[] = $this->getItemTemplate($book->getId(), $book_with_cat, $book->getIsbn(), $book->getCategory()->getId(), $new_qty, $book->getPrice(), $new_total);
 
                 $gross_total += $new_total;
             }
         }
 
-
-
-        // $new_discount = ($discount) ? $discount + $cart['discount'] : $cart['discount'];
+        //getting discount
         $new_discount = $this->getDiscount($category_item_count);
-        // $new_discount = $gross_total * $discount_rate / 100;
-        $new_coupon_discount = ($coupon_discount) ? $coupon_discount + $cart['coupon_discount'] : $cart['coupon_discount'];
+
+        //saving new cart data
         $this->session->set('cart', [
             'gross_total' => $gross_total,
             'discount' => $new_discount,
-            'coupon_discount' => $new_coupon_discount,
-            'net_total' => $gross_total - $new_coupon_discount - $new_discount,
+            'coupon_discount' => 0,
+            'net_total' => $gross_total - $new_discount,
             'items' => $new_items
         ]);
 
+        //this will returned if type is an update
         if ($qty) {
             return [
                 'item_total' => number_format($updated_item_total, 2),
@@ -238,7 +235,7 @@ class CartController extends Controller
         ];
     }
 
-    public function initCart()
+    private function initCart()
     {
         $this->session->set('cart', [
             'gross_total' => 0,
@@ -247,23 +244,5 @@ class CartController extends Controller
             'net_total' => 0,
             'items' => []
         ]);
-    }
-
-    /**
-     *@Route("/article/save")
-     */
-    public function save()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $article = new Article();
-        $article->setTitle('title');
-        $article->setBody('this is the body');
-
-        $entityManager->persist($article);
-
-        $entityManager->flush();
-
-        return new Response('saved');
     }
 }

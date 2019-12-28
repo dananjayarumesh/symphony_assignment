@@ -14,7 +14,6 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th width="10%">#</th>
 									<th width="30%">Name</th>
 									<th width="20%">QTY</th>
 									<th width="20%">Unit Price</th>
@@ -25,7 +24,6 @@
 							<tbody>
 								{% for item in cart.items %}
 									<tr>
-										<td>1</td>
 										<td>{{item.name}}
 											<br><small>ISBN:
 												{{item.isbn}}</small>
@@ -67,69 +65,8 @@
 			</div>
 		</div>
 	{% else %}
-		asdas
+		<div class="empty-cart-div"></div>
 
 	{% endif %}
 </div>{% endblock %}{% block scripts %}
-<script type="text/javascript">
-
-	$('.cart-qty-input').change(function () {
-
-
-updateCart(this);
-});
-
-$('.remove-item').click(function () {
-
-
-removeCart(this);
-});
-
-function updateCart(e) {
-
-let item_id = $(e).data('id');
-let qty = $(e).val();
-
-$.ajax({
-url: 'cart/update',
-type: 'POST',
-dataType: 'JSON',
-data: {
-item_id: item_id,
-qty: qty
-},
-beforeSend: function () {},
-complete: function () {},
-success: function (data) {
-
-$(e).parent().parent().find('.item-total').html(data.data.item_total);
-$('.sub-total').html(data.data.total);
-loadCartCount();
-},
-error: function (data) {}
-});
-}
-
-function removeCart(e) {
-
-let item_id = $(e).data('id');
-
-$.ajax({
-url: 'cart/remove',
-type: 'POST',
-dataType: 'JSON',
-data: {
-item_id: item_id
-},
-beforeSend: function () {},
-complete: function () {},
-success: function (data) {
-
-$('.sub-total').html(data.data);
-loadCartCount();
-$(e).parent().parent().remove();
-},
-error: function (data) {}
-});
-}
-</script>{% endblock %}
+<script type="text/javascript"></script>{% endblock %}

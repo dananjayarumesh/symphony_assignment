@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cart
+{% block title %}Checkout
 {% endblock %}
 
 {% block body %}
@@ -12,85 +12,66 @@
 					<div class="col-md-12">
 						<fieldset>
 							<legend>Delivery Information</legend>
-							<form>
+							<form id="checkoutForm" onsubmit="event.preventDefault()">
 								<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">First Name</label>
-										<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Last Name</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="firstName">First Name*</label>
+											<input type="text" name="first_name" class="form-control" id="firstName" aria-describedby="emailHelp">
+										</div>
 									</div>
-								</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="lastName">Last Name*</label>
+											<input type="text" name="last_name" class="form-control" id="lastName">
+										</div>
+									</div>
 
-                                <div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Phone</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="phone">Phone*</label>
+											<input type="text" name="phone" class="form-control" id="phone">
+										</div>
 									</div>
-								</div>
 
-                                <div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Email</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="email">Email</label>
+											<input type="email" name="email" class="form-control" id="email">
+										</div>
 									</div>
-								</div>
 
-                                <div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Address Line 1</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="addressLine1">Address Line 1*</label>
+											<input type="text" name="address_line_1" class="form-control" id="addressLine1">
+										</div>
 									</div>
-								</div>
-                                <div class="col-md-6">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Address Line 2</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="addressLine2">Address Line 2</label>
+											<input type="text" name="address_line_2" class="form-control" id="addressLine2">
+										</div>
 									</div>
-								</div>
-                                <div class="col-md-12">
-									<div class="form-group">
-										<label for="exampleInputPassword1">City</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="city">City*</label>
+											<input type="text" name="city" class="form-control" id="city">
+										</div>
 									</div>
-								</div>
 
-                                  <div class="col-md-12">
-									<div class="form-group">
-										<label for="exampleInputPassword1">Delivery Information</label>
-										<input type="password" class="form-control" id="exampleInputPassword1">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="note">Delivery Information</label>
+											<input type="text" name="note" class="form-control" id="note">
+										</div>
 									</div>
-								</div>
 
 								</div>
 							</fieldset>
 						</form>
 					</div>
-					{# <div class="col-md-6">
-						<form>
-							<fieldset>
-								<legend>Deivery Information</legend>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Email address</label>
-									<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-									<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputPassword1">Password</label>
-									<input type="password" class="form-control" id="exampleInputPassword1">
-								</div>
-								<div class="form-group form-check">
-									<input type="checkbox" class="form-check-input" id="exampleCheck1">
-									<label class="form-check-label" for="exampleCheck1">Check me out</label>
-								</div>
-								<button type="submit" class="btn btn-primary">Submit</button>
-							</fieldset>
-						</form>
-					</div> #}
+
 				</div>
 			</div>
 
@@ -101,64 +82,64 @@
 						<hr>
 						<dl class="row">
 							<dt class="col-sm-7">Order Subtotal</dt>
-							<dd class="col-sm-5">LKR 1000.00</dd>
-
-							<dt class="col-sm-7">Discount (15%)</dt>
-							<dd class="col-sm-5">LKR 1000.00</dd>
+							<dd class="col-sm-5 text-right">LKR
+								{{ cart.gross_total |number_format(2, '.', ',')}}
+							</dd>
+							<dd></dd>
+							<dt class="col-sm-7">Discount</dt>
+							<dd class="col-sm-5 text-right">LKR
+								<span class="checkout-discount">{{ cart.discount |number_format(2, '.', ',')}}</span>
+							</dd>
 
 							<dt class="col-sm-7">Coupon Discount</dt>
-							<dd class="col-sm-5">LKR 1000.00</dd>
-
-							<dt class="col-sm-7">Coupon Discount</dt>
-							<dd class="col-sm-5">LKR 1000.00</dd>
+							<dd class="col-sm-5 text-right">LKR
+								<span class="checkout-coupon-discount">{{ cart.coupon_discount |number_format(2, '.', ',')}}</span>
+							</dd>
+							{% if cart.coupon_discount <= 0 %}
+								<dd class="col-sm-12">
+									<form class="form-inline" id="couponForm" onsubmit="couponVarify(); event.preventDefault()">
+										<div class="input-group mb-2 mr-sm-2">
+											<input type="text" class="form-control" id="couponCodeInput" placeholder="Coupon Code">
+										</div>
+										<button type="submit" class="btn btn-primary mb-2">Varify</button>
+									</form>
+									<hr>
+								</dd>
+							{% endif %}
+							<dt class="col-sm-7">Final Total</dt>
+							<dd class="col-sm-5 text-right net-total-color">LKR
+								<span class="checkout-net-total">{{ cart.net_total |number_format(2, '.', ',')}}</span>
+							</dd>
 						</dl>
-						<button type="button" class="btn btn-success btn-block">Checkout</button>
+
+						<button type="submit" form="checkoutForm" disabled="true" class="btn btn-success btn-block">Checkout</button>
 						<hr>
 						<div>ITEM SUMMARY</div>
 						<hr>
-						<div>
-
-							<div>
-								<div style="font-weight:bold">
-									<div class="row">
-										<div class="col-md-6">
-											book Name 1
-											<br><small>ISBN: 12312312</small>
-										</div>
-										<div class="col-md-6 text-right">
-											<div>LKR 1000.00</div>
-										</div>
-									</div>
-
-								</div>
+						<div class="checkout-items">
+							{% for item in cart.items %}
 								<div>
-									<small>Quantity: 1</small>
-								</div>
-							</div>
-
-
-						</div>
-						<hr>
-						<div>
-
-							<div>
-								<div style="font-weight:bold">
-									<div class="row">
-										<div class="col-md-6">
-											book Name 1
-											<br><small>ISBN: 12312312</small>
+									<div style="font-weight:bold">
+										<div class="row">
+											<div class="col-md-6">
+												{{item.name}}
+												<br><small>ISBN:
+													<br>{{item.isbn}}</small>
+											</div>
+											<div class="col-md-6 text-right">
+												<div>LKR
+													{{item.total |number_format(2, '.', ',')}}</div>
+											</div>
 										</div>
-										<div class="col-md-6 text-right">
-											<div>LKR 1000.00</div>
-										</div>
+
 									</div>
-
+									<div>
+										<small>Quantity:
+											{{item.qty}}</small>
+									</div>
+									<hr>
 								</div>
-								<div>
-									<small>Quantity: 1</small>
-								</div>
-							</div>
-
+							{% endfor %}
 
 						</div>
 					</div>
@@ -167,4 +148,5 @@
 		</div>
 	</div>
 
-</div>{% endblock %}
+</div>{% endblock %}{% block scripts %}
+<script type="text/javascript"></script>{% endblock %}
