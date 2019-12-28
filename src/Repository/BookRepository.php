@@ -47,4 +47,25 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.category_id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getArrayResult()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

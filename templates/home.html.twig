@@ -10,48 +10,15 @@
 			<div class="col-md-12">
 
 				<div class="mb-2">
-					<select class="custom-select" id="inputGroupSelect01">
-						<option selected>Select Category</option>
-						<option value="1">One</option>
-						<option value="2">Two</option>
-						<option value="3">Three</option>
+					<select class="custom-select" id="category">
+						<option value="0">All Categories</option>
+						{% for category in categories %}
+							<option value="{{category.id}}">{{category.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 
-				<div>
-					{# <table class="table table-striped">
-																<thead>
-																	<tr>
-																		<th>Name</th>
-																		<th>ISBN</th>
-																		<th>Category</th>
-																		<th>Price</th>
-																		<th>Add to bag</th>
-																	</tr>
-																</thead>
-										
-																<tbody></tbody>
-										
-										
-															</table> #}
-					<ul class="list-group">
-						<li class="list-group-item">
-							<div class="row">
-								<div class="col-md-3">Book name is here
-									<br><small>ISBN : 123212434</small>
-								</div>
-								<div class="col-md-2">Children</div>
-								<div class="col-md-4 text-right" style="color: #ca2323;
-									    font-weight: bold;
-									    font-size: 20px;">LKR 100.00</div>
-								<div class="col-md-3 text-right">
-									<button class="btn btn-success">Add to bag</button>
-								</div>
-							</div>
-						</li>
-					
-					</ul>
-				</div>
+				<div id="bookList"></div>
 
 			</div>
 
@@ -60,4 +27,32 @@
 
 	</div>
 
+{% endblock %}
+
+
+{% block scripts %}
+	<script type="text/javascript">
+
+
+		$('#category').change(function () {
+
+loadBookList($(this).val());
+});
+
+function loadBookList(id) {
+$.ajax({
+url: 'get-book-list',
+type: 'POST',
+data: {
+cat_id: id
+},
+beforeSend: function () {},
+complete: function () {},
+success: function (data) {
+$('#bookList').html(data);
+},
+error: function (data) {}
+});
+}
+	</script>
 {% endblock %}
