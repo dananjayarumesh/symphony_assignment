@@ -33,7 +33,7 @@
 {% block scripts %}
 	<script type="text/javascript">
 
-
+loadBookList(0);
 		$('#category').change(function () {
 
 loadBookList($(this).val());
@@ -50,6 +50,23 @@ beforeSend: function () {},
 complete: function () {},
 success: function (data) {
 $('#bookList').html(data);
+},
+error: function (data) {}
+});
+}
+
+function addToCart(id) {
+$.ajax({
+url: 'cart/add',
+type: 'POST',
+dataType: 'JSON',
+data: {
+item_id: id
+},
+beforeSend: function () {},
+complete: function () {},
+success: function (data) {
+loadCartCount();
 },
 error: function (data) {}
 });

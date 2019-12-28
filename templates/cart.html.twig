@@ -5,54 +5,131 @@
 
 {% block body %}
 	<div class="container">
-		<div class="row mt-5">
 
-			<div class="col-md-8">
-				<div>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th width="10%">#</th>
-								<th width="30%">Name</th>
-								<th width="20%">QTY</th>
-								<th width="20%">Unit Price</th>
-								<th width="20%">Total Price</th>
-								<th width="10%"></th>
-							</tr>
-						</thead>
+		{% if cart.items | length > 0 %}
+			<div class="row mt-5">
 
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Book name 1
-									<br><small>ISBN: 223123124</small>
-								</td>
-								<td><input type="number" value="1" class="form-control"></td>
-								<td>100033</td>
-								<td>323423</td>
-								<td>
-									<button class="btn btn-danger">X</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-8">
+					<div>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th width="10%">#</th>
+									<th width="30%">Name</th>
+									<th width="20%">QTY</th>
+									<th width="20%">Unit Price</th>
+									<th width="20%">Total Price</th>
+									<th width="10%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in cart.items %}
+									<tr>
+										<td>1</td>
+										<td>{{item.name}}
+											<br><small>ISBN:
+												{{item.isbn}}</small>
+										</td>
+										<td>
+											<input type="number" min="1" data-id="{{item.id}}" value="{{item.qty}}" class="form-control cart-qty-input">
+										</td>
+										<td>LKR
+											<span>{{item.unit |number_format(2, '.', ',')}}</span>
+										</td>
+										<td>LKR
+											<span class="item-total">{{item.total |number_format(2, '.', ',')}}</span>
+										</td>
+										<td>
+											<button class="btn btn-danger remove-item" data-id="{{item.id}}">X</button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
 
-			<div class="col-md-4">
-				<div class="card">
-					<div class="card-body">
-						<div>CART SUMMARY</div>
-						<hr>
-						<dl class="row">
-							<dt class="col-sm-7">SUB TOTAL</dt>
-							<dd class="col-sm-5">LKR 1000.00</dd>
-						</dl>
-						<a href="{{path('checkout')}}" class="btn btn-success btn-block">Proceed To Checkout</a>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<div>CART SUMMARY</div>
+							<hr>
+							<dl class="row">
+								<dt class="col-sm-7">SUB TOTAL</dt>
+								<dd class="col-sm-5">LKR
+									<span class="sub-total">{{ cart.net_total |number_format(2, '.', ',')}}</span>
+								</dd>
+							</dl>
+							<a href="{{path('checkout')}}" class="btn btn-success btn-block">Proceed To Checkout</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{% else %}
+		asdas
 
-</div>{% endblock %}
+	{% endif %}
+</div>{% endblock %}{% block scripts %}
+<script type="text/javascript">
+
+	$('.cart-qty-input').change(function () {
+
+
+updateCart(this);
+});
+
+$('.remove-item').click(function () {
+
+
+removeCart(this);
+});
+
+function updateCart(e) {
+
+let item_id = $(e).data('id');
+let qty = $(e).val();
+
+$.ajax({
+url: 'cart/update',
+type: 'POST',
+dataType: 'JSON',
+data: {
+item_id: item_id,
+qty: qty
+},
+beforeSend: function () {},
+complete: function () {},
+success: function (data) {
+
+$(e).parent().parent().find('.item-total').html(data.data.item_total);
+$('.sub-total').html(data.data.total);
+loadCartCount();
+},
+error: function (data) {}
+});
+}
+
+function removeCart(e) {
+
+let item_id = $(e).data('id');
+
+$.ajax({
+url: 'cart/remove',
+type: 'POST',
+dataType: 'JSON',
+data: {
+item_id: item_id
+},
+beforeSend: function () {},
+complete: function () {},
+success: function (data) {
+
+$('.sub-total').html(data.data);
+loadCartCount();
+$(e).parent().parent().remove();
+},
+error: function (data) {}
+});
+}
+</script>{% endblock %}

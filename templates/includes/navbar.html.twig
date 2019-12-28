@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
-    <div class="container">
-      <a class="navbar-brand" href="{{ path('home') }}">Book Store</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('cart') }}">
-                <img class="px-2 clrDAsh cartBtn" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+PHBhdGggZD0ibTQ2MiAzODZjNS41MTk1MzEgMCAxMC00LjQ4MDQ2OSAxMC0xMHMtNC40ODA0NjktMTAtMTAtMTAtMTAgNC40ODA0NjktMTAgMTAgNC40ODA0NjkgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im0zMCA1MTJoNDUyYzE2LjU0Mjk2OSAwIDMwLTEzLjQ1NzAzMSAzMC0zMHYtMzcyYzAtNS41MjM0MzgtNC40NzY1NjItMTAtMTAtMTBoLTcwYzAtNTUuMTQwNjI1LTQ0Ljg1OTM3NS0xMDAtMTAwLTEwMC01NS4yNTc4MTIgMC0xMDAgNDQuNjk5MjE5LTEwMCAxMDBoLTc2Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjExNmgtMTM2Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjI0NmMwIDE2LjU0Mjk2OSAxMy40NTcwMzEgMzAgMzAgMzB6bS0xMC0zMHYtMzZoMjMydjM2YzAgNS41MTU2MjUtNC40ODQzNzUgMTAtMTAgMTBoLTIxMmMtNS41MTU2MjUgMC0xMC00LjQ4NDM3NS0xMC0xMHptNDYyIDEwaC0yMTEuNzE4NzVjMS4xMDkzNzUtMy4xMjg5MDYgMS43MTg3NS02LjQ5MjE4OCAxLjcxODc1LTEwdi0zNmgyMjB2MzZjMCA1LjUxNTYyNS00LjQ4NDM3NSAxMC0xMCAxMHptLTE1MC00NzJjNDQuMTEzMjgxIDAgODAgMzUuODg2NzE5IDgwIDgwaC0xNjBjMC00NC4yMTA5MzggMzUuNzYxNzE5LTgwIDgwLTgwem0tMTY2IDEwMGg2NnY0NmgtMTBjLTUuNTIzNDM4IDAtMTAgNC40NzY1NjItMTAgMTBzNC40NzY1NjIgMTAgMTAgMTBoNDBjNS41MjM0MzggMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjItMTAtMTAtMTBoLTEwdi00NmgxNjB2NDZoLTEwYy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwaDQwYzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTBzLTQuNDc2NTYyLTEwLTEwLTEwaC0xMHYtNDZoNjB2MzA2aC0yMjB2LTE5MGMwLTUuNTIzNDM4LTQuNDc2NTYyLTEwLTEwLTEwaC05NnptODYgMTI2djE4MGgtMjMydi0xODB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im03NiAzMDZ2MjBjMCAzMy4xNDg0MzggMjYuODUxNTYyIDYwIDYwIDYwIDMzLjA4NTkzOCAwIDYwLTI2LjkxNDA2MiA2MC02MHYtMjBjNS41MjM0MzggMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjItMTAtMTAtMTBoLTIwYy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwdjIwYzAgMjIuMDU0Njg4LTE3Ljk0NTMxMiA0MC00MCA0MC0yMi4wOTM3NSAwLTQwLTE3LjkwNjI1LTQwLTQwdi0yMGM1LjUyMzQzOCAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2Mi0xMC0xMC0xMGgtMjBjLTUuNTIzNDM4IDAtMTAgNC40NzY1NjItMTAgMTBzNC40NzY1NjIgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im00NjIgMzQ2YzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTB2LTgwYzAtNS41MjM0MzgtNC40NzY1NjItMTAtMTAtMTBzLTEwIDQuNDc2NTYyLTEwIDEwdjgwYzAgNS41MjM0MzggNC40NzY1NjIgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjwvc3ZnPgo=">
-                <span class="badge badge-dark" style="margin-left: -20px;">9</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+	<div class="container">
+		<a class="navbar-brand" href="{{ path('home') }}">Book Store</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('cart') }}">
+						<img class="px-2 clrDAsh cartBtn" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+PHBhdGggZD0ibTQ2MiAzODZjNS41MTk1MzEgMCAxMC00LjQ4MDQ2OSAxMC0xMHMtNC40ODA0NjktMTAtMTAtMTAtMTAgNC40ODA0NjktMTAgMTAgNC40ODA0NjkgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im0zMCA1MTJoNDUyYzE2LjU0Mjk2OSAwIDMwLTEzLjQ1NzAzMSAzMC0zMHYtMzcyYzAtNS41MjM0MzgtNC40NzY1NjItMTAtMTAtMTBoLTcwYzAtNTUuMTQwNjI1LTQ0Ljg1OTM3NS0xMDAtMTAwLTEwMC01NS4yNTc4MTIgMC0xMDAgNDQuNjk5MjE5LTEwMCAxMDBoLTc2Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjExNmgtMTM2Yy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwdjI0NmMwIDE2LjU0Mjk2OSAxMy40NTcwMzEgMzAgMzAgMzB6bS0xMC0zMHYtMzZoMjMydjM2YzAgNS41MTU2MjUtNC40ODQzNzUgMTAtMTAgMTBoLTIxMmMtNS41MTU2MjUgMC0xMC00LjQ4NDM3NS0xMC0xMHptNDYyIDEwaC0yMTEuNzE4NzVjMS4xMDkzNzUtMy4xMjg5MDYgMS43MTg3NS02LjQ5MjE4OCAxLjcxODc1LTEwdi0zNmgyMjB2MzZjMCA1LjUxNTYyNS00LjQ4NDM3NSAxMC0xMCAxMHptLTE1MC00NzJjNDQuMTEzMjgxIDAgODAgMzUuODg2NzE5IDgwIDgwaC0xNjBjMC00NC4yMTA5MzggMzUuNzYxNzE5LTgwIDgwLTgwem0tMTY2IDEwMGg2NnY0NmgtMTBjLTUuNTIzNDM4IDAtMTAgNC40NzY1NjItMTAgMTBzNC40NzY1NjIgMTAgMTAgMTBoNDBjNS41MjM0MzggMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjItMTAtMTAtMTBoLTEwdi00NmgxNjB2NDZoLTEwYy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwaDQwYzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTBzLTQuNDc2NTYyLTEwLTEwLTEwaC0xMHYtNDZoNjB2MzA2aC0yMjB2LTE5MGMwLTUuNTIzNDM4LTQuNDc2NTYyLTEwLTEwLTEwaC05NnptODYgMTI2djE4MGgtMjMydi0xODB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im03NiAzMDZ2MjBjMCAzMy4xNDg0MzggMjYuODUxNTYyIDYwIDYwIDYwIDMzLjA4NTkzOCAwIDYwLTI2LjkxNDA2MiA2MC02MHYtMjBjNS41MjM0MzggMCAxMC00LjQ3NjU2MiAxMC0xMHMtNC40NzY1NjItMTAtMTAtMTBoLTIwYy01LjUyMzQzOCAwLTEwIDQuNDc2NTYyLTEwIDEwczQuNDc2NTYyIDEwIDEwIDEwdjIwYzAgMjIuMDU0Njg4LTE3Ljk0NTMxMiA0MC00MCA0MC0yMi4wOTM3NSAwLTQwLTE3LjkwNjI1LTQwLTQwdi0yMGM1LjUyMzQzOCAwIDEwLTQuNDc2NTYyIDEwLTEwcy00LjQ3NjU2Mi0xMC0xMC0xMGgtMjBjLTUuNTIzNDM4IDAtMTAgNC40NzY1NjItMTAgMTBzNC40NzY1NjIgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjxwYXRoIGQ9Im00NjIgMzQ2YzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTB2LTgwYzAtNS41MjM0MzgtNC40NzY1NjItMTAtMTAtMTBzLTEwIDQuNDc2NTYyLTEwIDEwdjgwYzAgNS41MjM0MzggNC40NzY1NjIgMTAgMTAgMTB6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjwvc3ZnPgo=">
+						<span class="badge badge-dark cart-count" style="margin-left: -20px; display:none">0</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
